@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
+import ast
 
 def split_the_data(data: pd.DataFrame, test_size: int =0.2, threshold: int= 0.5):
     """
@@ -24,3 +25,22 @@ def split_the_data(data: pd.DataFrame, test_size: int =0.2, threshold: int= 0.5)
     train, test = train_test_split(remaining_data, test_size=test_size, random_state=67)
 
     return pd.concat([train, atleast_one]), test
+
+
+def convert_to_list(data):
+    """
+    Single list or simply for row
+    """
+    return ast.literal_eval(data)
+
+def convert_series_to_list(data: pd, warn=False, add_nan=True):
+    """
+    Here data is the pd.Series
+    """
+    return [skill for sublist in data for skill in sublist]
+
+def get_unique_skills(course, courses):
+    l1 = convert_series_to_list(course['skills'])
+    l2 = convert_series_to_list(courses['skills'])
+    l = l1 + l2
+    return set(l)
