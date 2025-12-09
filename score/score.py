@@ -8,6 +8,9 @@ def score(y_true: np.array, y_preds: np.array, threshold: int = 0.5):
     """
     y_true = np.array(y_true) 
     y_preds = np.array(y_preds) 
-    assert y_true.ndim == 1, f"The y_true should have one dim, {y_true.ndim} was given" 
+
+    if y_true.ndim == 1:
+        y_true = y_true[:, np.newaxis]
+        
     hits = np.abs(y_preds - y_true < threshold) 
     return np.mean(hits)

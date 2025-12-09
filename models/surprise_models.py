@@ -25,18 +25,24 @@ class SurpriseModel(Base):
         return self.model.test(data)
 
     def save_model(self):
+        if not self.check_assets():
+            raise Exception("Make an assets folder")
         try:
-            with open(f'{self.model.__class__.__name__}.pkl', 'wb') as f:
-                pickle.dumps(self.model)
+            with open(f'assets/{self.model.__class__.__name__}.pkl', 'wb') as f:
+                pickle.dump(self.model, f)
         except:
             raise Exception('Something went wrong')
 
-    def load_model(self, path):
+    def load_model(self, path=None):
         if path is None:
-            path = f'{self.model.__class__.__name__}.pkl'
+            path = f'assets/{self.model.__class__.__name__}.pkl'
 
         elif not(f'{self.model.__class__.__name__}') in path:
             raise Exception('Couldnt load the model')
 
         with open(path, 'rb') as f:
-            return pickle.load(f)
+            data = pickle.load(f)
+
+        if data:
+            self.model = data
+            self.is_fitted = True

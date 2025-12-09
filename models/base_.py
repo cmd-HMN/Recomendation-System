@@ -1,3 +1,4 @@
+import os
 from abc import ABC, abstractmethod
 
 class Base(ABC):
@@ -16,3 +17,7 @@ class Base(ABC):
     @abstractmethod
     def load_model(self, path):
         pass
+
+    def check_assets(self, path='assets/'):
+        os.makedirs(path, exist_ok=True)
+        return os.path.exists(path)
