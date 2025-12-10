@@ -17,7 +17,7 @@ It supports multiple models including **KNN**, **Baseline**, and **Neural Networ
 - GPU support for Neural Networks.
 
 > [!NOTE]
-> **Models:** Currently supports `knn`, `bsl` (baseline), and `nn` (neural network).
+> **Models:** Supports `knn`, `bsl` (baseline), and `nn` (neural network) and only for the _Coursera Scraper Data_.
 
 ---
 
