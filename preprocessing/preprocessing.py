@@ -74,6 +74,7 @@ class DataProcessor:
             X_val = torch.tensor(X_val.to_numpy(), dtype=torch.float)    
             y_train = torch.tensor(y_train.to_numpy(), dtype=torch.float)  
             y_val = torch.tensor(y_val.to_numpy(), dtype=torch.float) 
+            test = torch.tensor(test.to_numpy(), dtype=torch.float) 
             
         return (X_train, y_train), (X_val, y_val), test
 

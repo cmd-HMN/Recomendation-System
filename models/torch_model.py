@@ -29,7 +29,7 @@ class TorchModel(Base):
                 
                 self.optimizer.zero_grad()
                 outputs = self.model(x_)
-                loss = torch.sqrt(self.criterion(outputs, y_.unsqueeze(1)))
+                loss = torch.sqrt(self.criterion(outputs, y_.view(-1, 1)))
                 loss.backward()
                 self.optimizer.step()
             
@@ -45,7 +45,7 @@ class TorchModel(Base):
                     x_ = x_.to('cuda', non_blocking=True)
                     y_ = y_.to('cuda', non_blocking=True)
                     val_output = self.model(x_)
-                    val_loss += torch.sqrt(self.criterion(val_output, y_)).item()
+                    val_loss += torch.sqrt(self.criterion(val_output, y_.view(-1, 1))).item()
             
             val_losses.append(val_loss / len(val_loader))
 
@@ -68,6 +68,13 @@ class TorchModel(Base):
             raise Exception('Something went wrong')
 
         self.model.load_state_dict(torch.load(path))
+
+    def test(self, test):
+        self.model.eval()
+        with torch.no_grad():
+            output = self.model(test)
+
+        return output.detach().cpu().numpy()
         
     def predict(self, user_index, title_index):
         x_ = torch.tensor(np.array([user_index, title_index]))

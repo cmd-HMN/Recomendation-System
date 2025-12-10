@@ -1,0 +1,6 @@
+flake8
+numpy
+pandas
+scikit-learn
+torch
+scikit-surprise
