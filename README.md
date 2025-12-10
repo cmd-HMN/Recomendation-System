@@ -81,7 +81,7 @@ The CLI accepts the following arguments:
 #### Example  
 
 ```bash
-python cli.py --model="nn" --params={'nn_epochs': 50} --watchit=True
+python cli.py --model="nn" --params="{'nn_epochs': 50}"
 ```
 
 ---
