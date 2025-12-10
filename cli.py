@@ -1,3 +1,4 @@
+import ast
 import threading
 from argparse import ArgumentParser
 
@@ -9,7 +10,7 @@ from pipeline import Pipeline
 # No predictions needed, only training
 args = ArgumentParser(description="This CLI that helps to simplify the training.")
 args.add_argument("--model", type=str, required=True, help="Name of the model to train")
-args.add_argument("--params", type=dict, default={}, help="Parameters for the model")
+args.add_argument("--params", type=ast.literal_eval, default={}, help="Parameters for the model")
 args.add_argument("--watchit", default=False, type=bool, help="Enable watchdog")
 args.add_argument("--watch_path", default=cfg.USER_DATA_PATH, type=str, help="Path to watch for changes")
 
